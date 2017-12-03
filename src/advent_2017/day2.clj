@@ -47,9 +47,7 @@
     in)))
         
 ;; Run the program with this
-(defn run
-  []
-  (do
-     (println (part1 (str/split-lines input)))
-     (println (part2 (str/split-lines input)))
-   ))
+(do
+    (println (part1 (str/split-lines input)))
+    (println (part2 (str/split-lines input)))
+)
