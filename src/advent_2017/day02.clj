@@ -1,4 +1,4 @@
-(ns advent-2017.day2)
+(ns advent-2017.day02)
 (require '[clojure.string :as str])
 
 ;; The puzzle input

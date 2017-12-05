@@ -1,4 +1,4 @@
-(ns advent-2017.day4)
+(ns advent-2017.day04)
 (require '[clojure.string :as str])
 
 (def input (map #(str/split %1 #"\s") (str/split-lines (slurp "resources/day4.txt"))))

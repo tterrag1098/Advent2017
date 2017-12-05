@@ -1,4 +1,4 @@
-(ns advent-2017.day3)
+(ns advent-2017.day03)
 
 ;; Puzzle input
 (def input 347991)
