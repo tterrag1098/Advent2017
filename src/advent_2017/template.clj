@@ -1,6 +1,6 @@
 (ns advent-2017.template)
 (require '[clojure.string :as str])
-(require '[advent_2017.core :as core])
+(require '[advent-2017.core :as core])
 
 (def input (str/split-lines (slurp "resources/day6.txt")))
 
