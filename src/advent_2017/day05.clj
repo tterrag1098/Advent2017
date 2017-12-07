@@ -1,7 +1,7 @@
 (ns advent-2017.day05)
-(require '[clojure.string :as str])
+(require '[advent-2017.core :as core])
 
-(def input (vec (map #(Integer/parseInt %) (str/split-lines (slurp "resources/day5.txt")))))
+(def input (vec (map #(Integer/parseInt %) (core/read-input "day5.txt"))))
 
 (defn jump-r [in idx acc f]
  (if (>= idx (count in))
@@ -14,6 +14,4 @@
 (defn part1 [in] (jump in inc))
 (defn part2 [in] (jump in #(if (>= % 3) (dec %) (inc %))))
 
-(do
-  (println (str "Part 1: " (part1 input)))
-  (println (str "Part 2: " (part2 input))))
+(core/do-parts part1 part2 input)

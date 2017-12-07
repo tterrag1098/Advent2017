@@ -1,5 +1,6 @@
 (ns advent-2017.day02)
 (require '[clojure.string :as str])
+(require '[advent-2017.core :as core])
 
 ;; The puzzle input
 (def input "493	458	321	120	49	432	433	92	54	452	41	461	388	409	263	58
@@ -46,8 +47,4 @@
 	      (/ (first (filter #(= (mod % min) 0) (remove #(= % min) vals))) min)))
     in)))
         
-;; Run the program with this
-(do
-    (println (part1 (str/split-lines input)))
-    (println (part2 (str/split-lines input)))
-)
+(core/do-parts part1 part2 (str/split-lines input))

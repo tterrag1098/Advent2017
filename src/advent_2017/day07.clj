@@ -1,11 +1,10 @@
 (ns advent-2017.day07)
-(require '[clojure.string :as str])
 (require '[advent-2017.core :as core])
 
 ;; Matcher for input, group 1 = name, group 2 = weight, group 3 = holding (if any)
 (def matcher #(re-matcher #"([a-z]+)\s\(([0-9]+)\)(?:\s->\s([a-z,\s]+))?" %))
 
-(def input (str/split-lines (slurp "resources/day7.txt")))
+(def input (core/read-input "day7.txt"))
 
 ;; Parse the input with the matcher and construct a map of data for each entry
 (def data
@@ -19,10 +18,6 @@
                   (if (nil? (res :holding)) (dissoc res :holding) res))) ; Clear out nil holding
              parsed))))
 
-;; Find the index of the first element in coll matching pred
-(defn first-idx [pred coll]
-   (first (keep-indexed #(when (pred %2) %1) coll)))
-
 ;; Given the tree, a tree element, and the new parent for this element,
 ;; add the element as a child of the parent and return the modified tree
 (defn sort-in
@@ -31,7 +26,7 @@
     #(not= (% :name) (data :name)) ; Remove the element
     (assoc 
       (vec in) ; Make sure to un-lazy
-      (first-idx #(= (% :name) (parent :name)) in) ; Find the parent's index in the list
+      (core/first-idx #(= (% :name) (parent :name)) in) ; Find the parent's index in the list
       (let [sorted (assoc parent ; Modify the parent, appending the new child and removing the child's name from the "holding" set
                           :children (conj (parent :children) data) 
                           :holding (set (remove #(= % (data :name)) (parent :holding)))) ]

@@ -2,7 +2,7 @@
 (require '[clojure.string :as str])
 (require '[advent-2017.core :as core])
 
-(def input (str/split-lines (slurp "resources/day6.txt")))
+(def input (core/read-input "dayXX.txt"))
 
 (defn part1 [in]
   )

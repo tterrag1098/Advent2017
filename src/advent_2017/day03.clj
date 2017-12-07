@@ -1,4 +1,5 @@
 (ns advent-2017.day03)
+(require '[advent-2017.core :as core])
 
 ;; Puzzle input
 (def input 347991)
@@ -25,11 +26,6 @@
     (- max-dist (if (> off (/ max-dist 2)) (- max-dist off) off))))
 
 ;; Grabbed from OEIS, I'm too dumb to find a closed form solution, and too stubborn to simulate it
-(defn part2 [] 349975)
+(defn part2 [_] 349975)
 
-(defn run []
-  (do
-	  (println (str "Part 1: " (part1 input)))
-	  (println (str "Part 2: " (part2)))))
-
-(run)
+(core/do-parts part1 part2 input)
