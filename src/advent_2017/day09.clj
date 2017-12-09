@@ -23,18 +23,18 @@
   (let [ [ nextchar after ] (token state) ] ; Bind next token and remaining text
     (case nextchar
       \> (assoc state :str after) ; Close the garbage and return
-	    \! (recur (assoc state :str (rest after))) ; Skip the following token and recurse
+      \! (recur (assoc state :str (rest after))) ; Skip the following token and recurse
       (recur (update-in (assoc state :str after) [:garbage] str nextchar))))) ; Any other character, add it to the garbage string and recurse
 
 (defn parse-group
   [state]
   (if (empty? (:str state)) state ; Base case, return if remaining string is empty
-	  (let [ [ nextchar after ] (token state) ; Bind next token and remaining text
-           state (assoc state :str after) ] ; Overwrite state binding with remainder
-	    (case nextchar
-	      \{ (recur (update-in state [:depth] inc)) ; Open a new group, increase the depth and recurse
-	      \} (recur (update-in (update-in state [:score] + (:depth state)) [:depth] dec )) ; Close a group, add depth to score, decrease the depth, recurse
-	      \< (recur (parse-garbage state)) ; Open garbage, delegate to parse-garbage
+    (let [ [ nextchar after ] (token state) ; Bind next token and remaining text
+             state (assoc state :str after) ] ; Overwrite state binding with remainder
+      (case nextchar
+        \{ (recur (update-in state [:depth] inc)) ; Open a new group, increase the depth and recurse
+        \} (recur (update-in (update-in state [:score] + (:depth state)) [:depth] dec )) ; Close a group, add depth to score, decrease the depth, recurse
+        \< (recur (parse-garbage state)) ; Open garbage, delegate to parse-garbage
         (recur state))))) ; Any other character (comma, newline) is skipped
 
 (defn part1 [in]
