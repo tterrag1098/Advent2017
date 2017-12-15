@@ -13,3 +13,7 @@
 ;; Find the index of the first element in coll matching pred
 (defn first-idx [pred coll]
    (first (keep-indexed #(when (pred %2) %1) coll)))
+
+;; Perform f on values of a map
+(defn update-values [m f & args]
+ (reduce (fn [r [k v]] (assoc r k (apply f v args))) {} m))
