@@ -13,7 +13,9 @@
 ;; Part 2's extra lengths
 (def extralengths [17 31 73 47 23])
 ;; The input for part 2, convert each character in the input to bytes and then append the "extra lengths" from the problem
-(def input2 (apply conj (vec (map byte input)) extralengths))
+(defn get-lengths
+  [in]
+  (apply conj (vec (map byte in)) extralengths))
 
 ;; Get a wrapped sublist from the data
 (defn sublist
@@ -62,4 +64,4 @@
 
 (defn part2 [in] (hash-str (dense-hash (do-hash data in 64))))
 
-(core/do-parts part1 part2 input1 input2)
+(core/do-parts part1 part2 input1 (get-lengths input))
