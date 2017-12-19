@@ -45,4 +45,4 @@
         (recur (first res) (second res) (mod (inc x) 128) (if (= x 127) (inc y) y) (if (not= (count seen) (count (second res))) (inc groups) groups)))))
     in #{} 0 0 0))
 
-;(core/do-parts part1 part2 grid)
+(core/do-parts part1 part2 grid)
