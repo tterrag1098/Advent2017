@@ -1,10 +1,13 @@
 (ns advent-2017.core)
 (require '[clojure.string :as str])
 
+;; Returns a map to nicely represent the two parts
+(defn print-parts [res1 res2] { :part1 res1 :part2 res2 })
+
 ;; Perform both parts with the given input
 (defn do-parts 
-  ([p1 p2 input] { :part1 (p1 input) :part2 (p2 input) })
-  ([p1 p2 in1 in2] { :part1 (p1 in1) :part2 (p2 in2) }))
+  ([p1 p2 input] (do-parts p1 p2 input input))
+  ([p1 p2 in1 in2] (print-parts (p1 in1) (p2 in2))))
 
 ;; Read from a file and return the lines as a string seq
 (defn read-input [f]
