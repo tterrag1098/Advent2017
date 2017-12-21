@@ -32,8 +32,6 @@
                            (iterate #(map rotate %) $)
                            (take 4 $)
                            (apply concat $)
-                           (conj $ (flip m true))
-                           (conj $ (flip m false))
                            (some #{grid} $)))) rules)))
 
 (defn vec-split [idx v] [(subvec v 0 idx) (subvec v idx)])
