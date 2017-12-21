@@ -7,7 +7,10 @@
 ;; Perform both parts with the given input
 (defn do-parts 
   ([p1 p2 input] (do-parts p1 p2 input input))
-  ([p1 p2 in1 in2] (print-parts (p1 in1) (p2 in2))))
+  ([p1 p2 in1 in2] 
+    (let [ start (System/currentTimeMillis) 
+           res (print-parts (p1 in1) (p2 in2)) ]
+      (println (str "Finished in: " (- (System/currentTimeMillis) start) "ms")))))
 
 ;; Read from a file and return the lines as a string seq
 (defn read-input [f]

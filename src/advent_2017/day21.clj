@@ -13,16 +13,6 @@
                                   (->> (map #(vec (char-array %))))
                                   (vec))))) (vec)))) (vec)))
 
-(def rules
-  (apply concat (map (fn [rule]
-                       (let [m (first rule) ]
-                         (as-> m $
-                               (vector $ (flip $ true))
-                               (iterate (partial map rotate) $)
-                               (take 4 $)
-                               (apply concat $)
-                               (map #(vector % (second rule)) $)))) input)))
-
 (def grid
 [ [ \. \# \. ]
   [ \. \. \# ]
@@ -34,8 +24,17 @@
 (defn flip [mat updn]
   (if updn (vec (reverse mat)) (vec (map #(vec (reverse %)) mat))))
 
-(defn find-rule [rules grid]
-  (first (filter #(= grid (first %)) rules)))
+(def rules
+  (into {}
+    (apply concat 
+      (map (fn [rule]
+             (let [m (first rule) ]
+               (as-> m $
+                     (vector $ (flip $ true))
+                     (iterate (partial map rotate) $)
+                     (take 4 $)
+                     (apply concat $)
+                     (map #(vector % (second rule)) $)))) input))))
 
 (defn vec-split [idx v] (if (>= idx (count v)) v [(subvec v 0 idx) (subvec v idx)]))
 
@@ -46,12 +45,9 @@
      (partition (/ (count m) col) $)))
 
 (defn merge-horiz [mats]
-  (vec 
-    (map-indexed 
-      (fn [i m] (vec 
-                  (apply concat m
-                         (map #(nth % i) (rest mats))))) 
-                (first mats))))
+  (vec (map-indexed 
+         (fn [i m] (vec (apply concat m (map #(nth % i) (rest mats))))) 
+         (first mats))))
 
 (defn merge-corners [mats]
   (apply concat (map merge-horiz mats)))
@@ -62,9 +58,7 @@
     (if (>= (/ (count grid) 2) 2)
       (let [ split (if (zero? (mod (count grid) 2)) 2 3) ]
         (merge-corners (map #(map (partial enhance rules) %) (partition-mat grid split split))))
-      (->> grid
-           (find-rule rules)
-           second))))
+      (rules grid))))
 
 (defn on-after [rules amt] (count (filter (partial = \#) (flatten (enhance rules grid amt)))))
 
