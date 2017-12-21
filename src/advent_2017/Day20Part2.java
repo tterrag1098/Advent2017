@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Day20Part2 {
 
 	public static void main(String[] args) throws IOException {
-		List<String> lines = Files.readAllLines(Paths.get("resources", "temp.txt"));
+		List<String> lines = Files.readAllLines(Paths.get("resources", "day20.txt"));
 		List<int[][]> data = lines.stream()
 				     .map(s -> s.replaceAll("[pva<>=]", ""))
 				     .map(s -> s.replaceAll(",", " "))
