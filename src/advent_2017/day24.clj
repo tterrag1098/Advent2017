@@ -38,13 +38,13 @@
 (defn find-bridge 
   ([components]
     (->> components
-          get-roots
-          (map #(find-bridge (disj components %) %))))
+         get-roots
+         (map #(find-bridge (disj components %) %))))
   ([components root] 
     (let [ root (->Component (:ports root) [(pos? (first (:ports root))) (pos? (second (:ports root)))]) ]
       (find-bridge components (list root) [] [])))
   ([components search path strongest]
-    (do (prn strongest) (prn components) (if (empty? search) strongest
+    (do (Thread/sleep 100) (if (empty? search) strongest ;(prn :Path (map :ports path)) (prn :Strongest  (map :ports strongest)) (prn :Components (map :ports components)) (prn) 
       (let [ next (peek search)
              compat (->> components
                          (filter #(and (not= %1 next) (compatible next %1)))
